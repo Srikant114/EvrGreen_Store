@@ -12,7 +12,7 @@ const Banner = () => {
   const nextSlide = () => {
     setCurrentSlide(currentSlide === 2 ? 0 : (prev) => prev + 1);
   };
-  console.log(currentSlide);
+  
 
   return (
     <div className="w-full h-auto overflow-x-hidden ">

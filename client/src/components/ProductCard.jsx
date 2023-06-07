@@ -1,25 +1,28 @@
 import React from "react";
 import { BsArrowRight } from "react-icons/bs";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { addToCart } from "../redux/evrGreenSlice";
+import { ToastContainer, toast } from "react-toastify";
 
 const ProductCard = ({ product }) => {
-  
-  const navigate = useNavigate()
+  const dispatch = useDispatch();
 
-    const _id = product.title;
-    const idString = (_id) => {
-      return String(_id).toLowerCase().split("").join("");
-    };
-    const rootId = idString(_id)
+  const navigate = useNavigate();
 
-    const handleProducts=()=>{
-      navigate(`/product/${rootId}`,{
-        state:{
-          item:product
-        }
-      })
-    }
+  const _id = product.title;
+  const idString = (_id) => {
+    return String(_id).toLowerCase().split("").join("");
+  };
+  const rootId = idString(_id);
 
+  const handleProducts = () => {
+    navigate(`/product/${rootId}`, {
+      state: {
+        item: product,
+      },
+    });
+  };
 
   return (
     <div className="group relative ">
@@ -45,7 +48,21 @@ const ProductCard = ({ product }) => {
               <p className="line-through text-gray-500">${product.oldPrice}</p>
               <p className="font-semibold">${product.price}</p>
             </div>
-            <p className="absolute z-20 w-[100px] text-gray-400 hover:text-white flex items-center gap-1 top-0 transform -translate-x-32 group-hover:translate-x-0 transistion-transform cursor-pointer duration-500">
+            <p
+              onClick={() =>
+                dispatch(
+                  addToCart({
+                    _id: product._id,
+                    title: product.title,
+                    image: product.image,
+                    price: product.price,
+                    quantity: 1,
+                    description: product.description,
+                  })
+                ) & toast.success(`${product.title} is Added`)
+              }
+              className="absolute z-20 w-[100px] text-gray-400 hover:text-white flex items-center gap-1 top-0 transform -translate-x-32 group-hover:translate-x-0 transistion-transform cursor-pointer duration-500"
+            >
               Add to cart
               <span className="flex">
                 <BsArrowRight />
@@ -64,6 +81,18 @@ const ProductCard = ({ product }) => {
           )}
         </div>
       </div>
+      <ToastContainer
+        position="top-left"
+        autoClose={2000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="dark"
+      />
     </div>
   );
 };
