@@ -5,6 +5,8 @@ import paymentLogo from "./paymentLogo.png";
 import googleLogo from "./googleLogo.png";
 import githubLogo from "./githubLogo.png";
 import cartBgImg from "./cartImg.png";
+import loginImg from "./login.png";
+
 
 /** Importing Banner Image */
 
@@ -22,5 +24,6 @@ export {
   bannerImg1,
   bannerImg2,
   bannerImg3,
-  cartBgImg
+  cartBgImg,
+  loginImg
 };

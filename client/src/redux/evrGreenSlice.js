@@ -46,6 +46,12 @@ export const evrGreenSlice = createSlice({
         item.quantity--;
       }
     },
+    addUser: (state, action) => {
+      state.userInfo = action.payload;
+    },
+    removeUser: (state) => {
+      state.userInfo = null;
+    },
   },
 });
 
@@ -55,5 +61,7 @@ export const {
   resetCart,
   increamentQuantity,
   decrementQuantity,
+  addUser,
+  removeUser,
 } = evrGreenSlice.actions;
 export default evrGreenSlice.reducer;

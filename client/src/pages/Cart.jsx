@@ -4,10 +4,13 @@ import CartItem from "../components/CartItem";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { HiOutlineArrowLeft } from "react-icons/hi";
+import { toast } from "react-toastify";
 
 const Cart = () => {
   const productData = useSelector((state) => state.evrGreen.productData);
+  const userInfo = useSelector((state)=>state.evrGreen.userInfo)
   const [totalAmt, setTotalAmt] = useState("");
+  const [ setPayNow] = useState(false)
 
   useEffect(() => {
     let price = 0;
@@ -19,6 +22,14 @@ const Cart = () => {
     setTotalAmt(price.toFixed(2));
   }, [productData]);
 
+  const handleCheckout = ()=>{
+    if(userInfo){
+      setPayNow(true)
+    }else{
+      toast.error("Please LogIn to Checkout ❤️")
+    }
+  }
+
   return (
     <div>
       <img
@@ -27,13 +38,13 @@ const Cart = () => {
         alt="cartBgImg"
       />
       <div>
-        {productData.length === 0 ? (
+        {!productData.length ? (
           <div>
             <h2 className="text-red-500 flex justify-center  my-4">
               Your Cart is Empty, Please Go back and add Some Product
             </h2>
             <div>
-              <Link to="/">
+              <Link to="/shop">
                 <button className="my-2 w-screen flex justify-center items-center gap-1 text-gray-400 hover:text-black duration-300">
                   <span>
                     <HiOutlineArrowLeft />
@@ -67,7 +78,7 @@ const Cart = () => {
                 <p className="font-titleFont font-semibold flex justify-between mt-6">
                   Total <span className="text-xl font-bold"> $ {totalAmt}</span>
                 </p>
-                <button className="text-base text-white bg-black w-full py-3 mt-6 hover:bg-gray-800 duration-300 rounded-md">
+                <button onClick={handleCheckout} className="text-base text-white bg-black w-full py-3 mt-6 hover:bg-gray-800 duration-300 rounded-md">
                   Proceed To Checkout
                 </button>
               </div>

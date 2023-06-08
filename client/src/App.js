@@ -12,6 +12,9 @@ import {
 import Cart from "./pages/Cart";
 import { productData } from "./api/api";
 import ProductPage from "./components/ProductPage";
+import Login from "./pages/Login";
+import Shop from "./pages/Shop";
+import SignUp from "./pages/SignUp";
 
 const Layout = () => {
   return (
@@ -39,8 +42,21 @@ const router = createBrowserRouter([
         element: <ProductPage/>,
       },
       {
+        path: "/shop",
+        element:<Shop/>,
+        loader: productData
+      },
+      {
         path: "/cart",
         element: <Cart />,
+      },
+      {
+        path:"/login",
+        element: <Login/>
+      },
+      {
+        path:"/signup",
+        element:<SignUp/>
       },
     ],
   },
